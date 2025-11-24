@@ -129,13 +129,13 @@ ORDER BY revenue DESC;
 Walmart-Sales-Analysis/
 │
 ├── data/
-│   └── WalmartSalesData.csv
+│   └── Walmart_Sales_Data.csv
 │
 ├── sql/
-│   └── Walmart_sales_sql.sql
+│   └── Walmart_Sales.sql
 │
 ├── dashboard/
-│   └── Walmart_Sales_Analysis.pbix
+│   └── Walmart_Sales.pbix
 │
 └── README.md
 ```
