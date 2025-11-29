@@ -1,22 +1,39 @@
+# 📊 Walmart Sales Data Analysis  
+*A Data-Driven Evaluation of Retail Performance, Customer Behavior & Product Profitability*
 
-# Walmart Sales Data Analysis
+---
 
-This project provides a complete analysis of Walmart sales data using SQL for data cleaning and transformation and Power BI for KPI reporting and visual dashboards.
+## 📘 Executive Summary  
+This project presents a complete retail analytics workflow using **MySQL** for data preparation and **Power BI** for KPI reporting and visualization. The analysis reveals critical insights across branches, product categories, customer segments, and time periods. These insights support decision-making in pricing strategy, operational efficiency, customer engagement, and category management.
 
-## Project Overview
-This project analyzes Walmart’s sales performance across multiple branches and product categories. It includes:
+---
 
-- Data cleaning and transformation using MySQL  
-- Exploratory data analysis  
-- KPI generation (Revenue, COGS, Gross Income, Ratings, Customer Behavior)  
-- Power BI dashboard for visualization and insights  
+## 🔍 Project Overview  
+The analysis focuses on evaluating Walmart’s sales performance across three geographic branches. By leveraging structured SQL transformations and a Power BI dashboard, this project identifies:
 
-## Objectives:
-- Identify sales trends  
-- Understand customer purchase behavior  
-- Analyze branch-level performance  
-- Evaluate profitable product lines  
-- Build an interactive dashboard for business consumers  
+- High-performing product lines  
+- Customer purchasing and rating patterns  
+- Branch-level revenue and profitability differences  
+- Time-based sales trends (daily, monthly, hourly)  
+
+The end-to-end workflow includes:
+
+- Data ingestion and validation  
+- Cleaning and transformation using MySQL  
+- Exploratory KPI analysis  
+- Dashboard development for interactive insights  
+
+---
+
+## 🎯 Project Objectives  
+- Measure and compare branch-level performance  
+- Identify profitable and fast-moving product categories  
+- Evaluate customer behavior across demographics and membership types  
+- Analyze margin, gross income, and VAT contribution  
+- Understand peak sales periods to optimize marketing & staffing  
+- Provide an interactive BI dashboard for stakeholders  
+
+--- 
 
 ## Dataset Description
 The dataset used in this project originates from the [Kaggle Walmart Sales Forecasting Competition](https://www.kaggle.com/c/walmart-recruiting-store-sales-forecasting). It contains detailed transactional records from three Walmart branches located in Mandalay, Yangon, and Naypyitaw.
@@ -25,37 +42,39 @@ The dataset used in this project originates from the [Kaggle Walmart Sales Forec
 **Rows:** 1000  
 **Columns:** 17  
 
-| Column | Description | Data Type      |
-|--------|-------------| -------------- |
-| Invoice ID | Unique transaction number | VARCHAR(30)    |
-| Branch | A, B, or C | VARCHAR(5)    |
-| City | City of the branch | VARCHAR(30)    |
-| Customer type | Member or Normal | VARCHAR(30)    |
-| Gender | Male / Female | VARCHAR(30)    |
-| Product line | Category of item | FLOAT    |
-| Unit price | Price per unit | DECIMAL(10, 2)     |
-| Quantity | Units purchased | INT    |
-| Tax 5% | Calculated 5% tax | FLOAT    |
-| Total | Total billed amount | DECIMAL(12, 4)    |
-| Date | Transaction date | DATETIME    |
-| Time | Transaction time | TIME    |
-| Payment | Payment method | VARCHAR(15)   |
-| COGS | Cost of goods sold | DECIMAL(10, 2)    |
-| Gross margin % | Margin percentage | FLOAT    |
-| Gross income | Profit amount | DECIMAL(12, 4)    |
-| Rating | Customer rating | FLOAT    |
-  
+| Column | Description |
+|--------|-------------|
+| Invoice ID | Unique transaction code |
+| Branch | A, B, or C |
+| City | Location of the branch |
+| Customer type | Member / Normal |
+| Gender | Male / Female |
+| Product line | Purchased product category |
+| Unit price | Price per item |
+| Quantity | Units bought |
+| Tax 5% | VAT applied |
+| Total | Final billed amount |
+| Date | Purchase date |
+| Time | Purchase time |
+| Payment | Payment method |
+| COGS | Cost of goods sold |
+| Gross margin % | Margin percentage |
+| Gross income | Profit generated |
+| Rating | Customer satisfaction (1–10) |
+
+---
 
 ## Data Cleaning & Transformation (SQL)
 **SQL File:** `Walmart_sales_sql.sql`
 
-### Tasks Performed
-> 1. Created database and table  
-> 2. Imported raw CSV data  
-> 3. Applied correct data types  
-> 4. Converted date and time fields  
-> 5. Generated KPIs  
-> 6. Performed aggregations and grouping  
+### Tasks Performed  
+- Created database and structured tables  
+- Loaded and validated raw CSV data  
+- Cleaned fields and standardized data types  
+- Extracted date, time, and derived fields  
+- Built analytical KPIs (Revenue, COGS, Gross Margin, Gross Income)  
+- Performed aggregations for trend and category analysis
+
 
 ### Example SQL Queries
 
@@ -64,42 +83,48 @@ The dataset used in this project originates from the [Kaggle Walmart Sales Forec
 SELECT SUM(total) AS total_revenue FROM walmartSales;
 ```
 
-**Sales by Branch**
+**Category-Level Profitability Ranking**
 ```sql
-SELECT branch, SUM(total) AS total_sales
-FROM walmartSales
-GROUP BY branch;
-```
-
-**Top Product Lines**
-```sql
-SELECT product_line, SUM(total) AS revenue
+SELECT product_line,
+       SUM(gross_income) AS total_profit
 FROM walmartSales
 GROUP BY product_line
-ORDER BY revenue DESC;
+ORDER BY total_profit DESC;
 ```
+
+**Hourly Sales Trend**
+```sql
+SELECT HOUR(time) AS hour_of_day,
+       SUM(total) AS revenue
+FROM walmartSales
+GROUP BY hour_of_day
+ORDER BY hour_of_day;
+```
+
+---
 
 
 ## Business Questions Answered
 
-### 🔹 **1. Sales Patterns**
-> - Which branch generates the highest revenue?  
-> - What are hourly and daily sales patterns?  
-> - Which months show peak sales?
+### 🔹 1. Revenue & Sales Performance
+- Which branch generates the highest revenue and profit?
+- What are the strongest and weakest product categories?
+- How do sales vary by month, day, and hour?
 
-### 🔹 **2. Customer Insights**
-> - Which customer types contribute the most revenue?  
-> - Gender-based purchasing patterns  
-> - Ratings comparison across branches
+### 🔹 2. Customer Insights
+- Which customer segment (Member/Normal) spends more?
+- Do purchasing patterns vary by gender?
+- How do customer ratings differ across product lines?
 
-### 🔹 **3. Product Analysis**
-> - Most profitable product lines  
-> - Most frequently purchased categories  
-> - COGS, gross income & VAT contribution
+### 🔹 3. Product Profitability
+- Which product lines have the highest margins?
+- Are higher-rated products purchased more frequently?
 
-### 🔹 **4. Branch Performance**
-> - Which branch performs the best overall?  
-> - KPI comparison across Mandalay, Yangon, Naypyitaw
+### 🔹 4. Branch-Level Analysis
+- Operational effectiveness across Mandalay, Yangon, and Naypyitaw
+- Branch-level contribution to revenue, quantity sold, and gross income
+
+---
 
 ## Power BI Dashboard
 **File:** `Walmart_Sales_Analysis.pbix`
@@ -118,11 +143,7 @@ ORDER BY revenue DESC;
 > - Gender-based Purchase Comparison  
 > - Payment Method Distribution   
 
-### Insights 
-> - Food & Beverages is the top-performing product line, followed by Sports & Travel and Electronic Accessories.  
-> - Branch B consistently generates the highest revenue.  
-> - January is the highest-selling month, Saturday is the strongest day, and 7 PM is the peak sales hour.  
-> - Female customers contribute slightly more revenue than males, and E-Wallet/Cash are the most preferred payment methods.    
+---
 
 ## Project Structure
 ```
@@ -140,6 +161,7 @@ Walmart-Sales-Analysis/
 └── README.md
 ```
 
+---
 
 ## Key Insights and Business Impact
 
@@ -184,16 +206,7 @@ Walmart-Sales-Analysis/
 
 ## Conclusion
 
-This project showcases a complete end-to-end data analysis workflow, beginning with SQL-based data preparation and culminating in a fully interactive Power BI dashboard.
-
-Through this analysis, we uncover valuable insights including:
-- High-performing branches
-- Top revenue-generating product lines
-- Customer purchasing behavior
-- Peak sales times
-- Profitability trends
-
-These insights can support data-driven decisions related to sales strategy, customer engagement, and product performance optimization.
+This project demonstrates a complete, real-world retail analytics pipeline—from structured SQL transformations to interactive Power BI dashboards. The insights derived help optimize product strategies, refine branch operations, and enable more targeted, data-driven decisions across marketing and customer experience functions.
 
 ---
 
