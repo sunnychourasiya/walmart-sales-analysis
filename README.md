@@ -2,25 +2,79 @@
 
 A Complete Retail Analytics Project Using MySQL & Power BI
 
-Built an end-to-end retail analytics pipeline using MySQL + Power BI, transforming raw supermarket sales data into actionable insights on revenue, profit, customer behavior, product performance, and time-based sales trends across three branches.
+<p align="left">
+
+  <img src="https://img.shields.io/badge/MySQL-Data%20Engineering-blue" />
+  <img src="https://img.shields.io/badge/SQL-Transformations-lightgrey" />
+  <img src="https://img.shields.io/badge/Power%20BI-Dashboarding-F2C811" />
+  <img src="https://img.shields.io/badge/DAX-KPI%20Modeling-purple" />
+  <img src="https://img.shields.io/badge/Excel%2FCSV-Source%20Data-green" />
+
+</p>
 
 ---
 
-## 📘 Executive Summary
+## 📌 Project Summary
 
-This project presents an end-to-end **Supermarket Sales Analytics** solution using **MySQL** for data engineering and **Power BI** for interactive business intelligence reporting.
-
-Using **1,000 point-of-sale transactions** from three supermarket branches, the project uncovers insights across:
-
-- **Revenue & profitability**
-- **Customer purchasing behavior**
-- **Product category performance**
-- **Time-based sales trends**
-
-The goal is to support supermarket decision-making across **store operations**, **category management**, **customer behavior analysis**, and **marketing optimization**.  
-The workflow replicates a **real-world retail BI pipeline**, including data cleaning, KPI modeling, dashboard creation, and insight generation.
+| **Category**     | **Details** |
+|------------------|-------------|
+| **Domain**       | Retail Sales Analytics |
+| **Objective**    | Analyze revenue, customers, products, and time-based demand across 3 supermarket branches |
+| **Dataset**      | 1,000 POS transactions × 17 fields |
+| **Deliverables** | SQL-cleaned dataset, KPI model, DAX measures, 4-page Power BI dashboard |
+| **Tech Stack**   | MySQL, SQL, Power BI, DAX, Excel/CSV |
+| **Business Impact** | Better revenue insights, optimized inventory & staffing, improved category decisions & customer targeting |
 
 ---
+
+## 📊 Key Highlights at a Glance
+
+- Processed **1,000+** supermarket transactions  
+- **Branch B** is the top performer in revenue & profit  
+- **Electronics, Food & Beverages, Home & Lifestyle** drive most profit  
+- **Members** spend more per transaction than Normal customers  
+- **Females** contribute slightly higher revenue  
+- Peak sales time: **5 PM – 8 PM**  
+- Highest traffic day: **Saturday**  
+- Best month: **January**  
+- Delivered a complete **SQL → Power BI** analytics pipeline  
+
+---
+
+## Repository Structure
+```
+Supermarket-Sales-Analysis/
+│
+├── data/
+│   └── supermarket_sales_data.csv
+│
+├── sql/
+│   └── supermarket_sales.sql
+│
+├── dashboard/
+│   └── Supermarket_Sales_Analysis.pbix
+│
+└── README.md
+```
+
+---
+
+
+## 📘 Executive Overview
+
+This project delivers a complete **Supermarket Sales Analytics solution** by combining **MySQL-based data engineering** with a **Power BI business intelligence layer**.  
+Using **1,000 point-of-sale transactions** from branches in **Mandalay, Yangon, and Naypyitaw**, the solution provides a unified view of:
+
+- **Revenue and gross profit performance**
+- **Customer behavior by segment and gender**
+- **Product category contribution and margin drivers**
+- **Time-based demand patterns across hours, days, and months**
+
+The output equips supermarket leaders with the insights needed to improve **sales strategy**, **category management**, **inventory planning**, and **customer engagement**.  
+The workflow reflects a **real-world enterprise BI pipeline**, enabling repeatable, scalable analytics for retail decision-making.
+
+--- 
+
 
 ## 📑 Table of Contents
 
@@ -45,39 +99,38 @@ The workflow replicates a **real-world retail BI pipeline**, including data clea
 
 ---
 
-## 🔍 Project Overview
+## 🔍 Problem Statement
 
-Retail managers require real-time visibility into:
+Supermarket leadership lacked a consolidated analytics framework to answer essential business questions across branches, customers, products, and demand cycles.  
+Key gaps included:
 
-- Branch sales performance
-- Revenue and profitability
-- Customer behavior differences
-- Product category trends
-- Peak sales hours and demand patterns
+- No clear visibility into **branch-level revenue and profitability**
+- Limited understanding of **Member vs Normal customer behavior**
+- No structured view of **high-margin or fast-moving product categories**
+- Insufficient insight into **peak sales hours, days, and monthly cycles**
 
-This project transforms raw CSV data into analysis-ready tables, builds a star-schema BI model, and develops Power BI dashboards to solve these challenges.
+These limitations affected **inventory decisions**, **staffing efficiency**, **promotional planning**, and **customer targeting**.  
+This project addresses these challenges by building a complete SQL → Power BI pipeline that transforms raw transactional data into actionable insights.
 
 ---
 
-## 🎯 Project Objectives
+## Project Objectives
 
-### 1. Revenue & Profitability
-- Identify top-performing product categories  
-- Compare revenue and profit across branches  
-- Analyze gross income and margin patterns  
+- Identify the key revenue, customer, and product factors driving supermarket performance  
+- Compare sales and profitability patterns across branches, customer segments, and product categories  
+- Engineer analytical fields that enhance demand analysis, margin evaluation, and customer segmentation  
+- Deliver actionable insights to support pricing, inventory planning, staffing, and category management teams  
+- Establish a clean, scalable analytical foundation suitable for advanced forecasting and retail BI expansion  
 
-### 2. Customer Behavior
-- Compare spending patterns (Member vs Normal customers)  
-- Analyze gender-based revenue contribution  
-- Evaluate satisfaction through customer ratings  
+---
 
-### 3. Product & Category Analytics
-- Identify profitable and fast-moving product lines  
-- Explore relationships between ratings and sales  
+## Project Workflow
 
-### 4. Time-Based Trends
-- Identify peak shopping hours and high-traffic days  
-- Study revenue patterns across days and months  
+```
+
+Raw Data -→ MySQL Data Cleaning -→ KPI & Derived Fields -→ Power BI Data Model -→ DAX Measures -→ Interactive Dashboards -→ Insights -→ Business Recommendations
+
+```
 
 ---
 
@@ -85,11 +138,11 @@ This project transforms raw CSV data into analysis-ready tables, builds a star-s
 
 This project uses the **Supermarket Sales Dataset** from Kaggle containing 1,000 transaction-level records.
 
-**Dataset:** https://www.kaggle.com/datasets/aungpyaeap/supermarket-sales     
+**Dataset:** [Supermarket Sales Data](https://www.kaggle.com/datasets/markmedhat/supermarket-sales)      
 **File:** `supermarket_sales_data.csv`  
 **Rows:** 1,000 | **Columns:** 17  
  
-### Key Features  
+### Columns Overview  
 | Column | Description |
 |--------|-------------|
 | Invoice ID | Unique transaction identifier |
@@ -240,24 +293,6 @@ DIVIDE(
 - **January** recorded the strongest month in terms of revenue.  
 
 These insights help optimize **staffing**, **inventory planning**, **promotional strategies**, **category assortment**, and **customer targeting**.  
-
----
-
-## Project Structure
-```
-Supermarket-Sales-Analysis/
-│
-├── data/
-│   └── supermarket_sales_data.csv
-│
-├── sql/
-│   └── supermarket_sales.sql
-│
-├── dashboard/
-│   └── Supermarket_Sales_Analysis.pbix
-│
-└── README.md
-```
 
 ---
 
