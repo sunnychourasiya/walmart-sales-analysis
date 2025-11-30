@@ -81,19 +81,17 @@ The workflow reflects a **real-world enterprise BI pipeline**, enabling repeatab
 | **Section** | **Link** |
 |------------|----------|
 | Problem Statement | [Go to Section](#-problem-statement) |
-| Project Objectives | [Go to Section](#-project-objectives) |
+| Project Objectives | [Go to Section](#project-objectives) |
 | Key Business Questions | [Go to Section](#-key-business-questions) |
-| Project Workflow | [Go to Section](#-project-workflow) |
+| Project Workflow | [Go to Section](#project-workflow) |
 | Dataset Description | [Go to Section](#-dataset-description) |
 | Data Cleaning & Transformation (MySQL) | [Go to Section](#-data-cleaning--transformation-mysql) |
 | Business Intelligence (Power BI) | [Go to Section](#-business-intelligence-power-bi) |
-| Key KPIs & DAX Measures | [Go to Section](#-key-dax-measures) |
-| Key Insights  | [Go to Section](#-key-insights--business-impact) |
+| Key Insights  | [Go to Section](#-key-insights) |
 | Business Impact  | [Go to Section](#-business-impact) |
 | Technologies Used | [Go to Section](#-technologies-used) |
 | Dashboard Previews | [Go to Section](#-dashboard-previews) |
 | Conclusion | [Go to Section](#-conclusion) |
-| Show Support | [Go to Section](#-show-support) |
 
 ---
 
@@ -112,7 +110,7 @@ This project addresses these challenges by building a complete SQL → Power BI 
 
 ---
 
-## Project Objectives
+##  Project Objectives
 
 - Identify the key revenue, customer, and product factors driving supermarket performance  
 - Compare sales and profitability patterns across branches, customer segments, and product categories  
@@ -144,7 +142,7 @@ This project addresses these challenges by building a complete SQL → Power BI 
 
 ---
 
-## Project Workflow
+##  Project Workflow
 
 ```
 
@@ -223,7 +221,7 @@ ORDER BY hour_of_day;
 ---
 
 
-## 📊 Power BI Dashboard
+## 📊 Business Intelligence (Power BI)
 
 **File:** `Supermarket_Sales_Analysis.pbix`
 
@@ -363,8 +361,18 @@ Visualizes hourly, daily, and monthly demand patterns to support staffing and in
 
 ## 🏁 Conclusion
 
-This project demonstrates a complete **retail analytics pipeline**, integrating SQL-based data engineering with Power BI visualization.  
-The insights support improved **sales strategy**, **product assortment**, **operational efficiency**, and **customer engagement** — mirroring BI workflows used in modern retail organizations.
+This project demonstrates a complete **retail analytics pipeline**, integrating SQL-based data engineering with a robust Power BI semantic model and interactive dashboards.
+
+The insights generated enable:
+
+- Stronger **revenue and margin strategy**  
+- Improved **inventory and assortment planning**  
+- Optimized **workforce scheduling** based on demand patterns  
+- Enhanced **customer engagement** through segment behavior analysis  
+- Data-driven **branch and product performance management**
+
+Overall, the solution mirrors the analytics frameworks used in modern retail organizations, delivering actionable intelligence for both operational and strategic decision-making.
+
 
 ---
 
