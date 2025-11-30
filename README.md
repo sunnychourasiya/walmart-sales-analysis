@@ -183,7 +183,7 @@ This project uses the **Supermarket Sales Dataset** from Kaggle containing 1,000
 
 ---
 
-## 🛠 Data Cleaning & Transformation (MySQL)
+## 🛠 MySQL Data Cleaning & Transformation 
 
 **SQL Script:** `supermarket_sales.sql`
 
@@ -221,7 +221,7 @@ ORDER BY hour_of_day;
 ---
 
 
-## 📊 Business Intelligence (Power BI)
+## 📊 Business Intelligence Layer (Power BI)
 
 **File:** `Supermarket_Sales_Analysis.pbix`
 
