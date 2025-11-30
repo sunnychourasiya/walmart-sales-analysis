@@ -211,15 +211,6 @@ This transformation layer ensures that all insights and dashboards are built on 
 SELECT SUM(total) AS total_revenue FROM Supermarket_Sales;
 ```
 
-**Category-Level Profitability Ranking**
-```sql
-SELECT product_line,
-       SUM(gross_income) AS total_profit
-FROM Supermarket_Sales
-GROUP BY product_line
-ORDER BY total_profit DESC;
-```
-
 **Hourly Sales Trend**
 ```sql
 SELECT HOUR(time) AS hour_of_day,
@@ -247,6 +238,18 @@ The dashboard serves as the primary decision-support interface, enabling busines
 
 These KPIs provide an immediate snapshot of overall commercial performance.
 
+## KPI Examples
+
+**Total Revenue**
+```KPI
+Total Revenue = SUM(supermarket_sales[Total])
+```
+
+**Average Customer Rating**
+```KPI
+Average Rating = AVERAGE(supermarket_sales[Rating])
+```
+
 ### ✔ Core Dashboard Modules
 - **Revenue Trends (Month & Day)**  
   Identifies seasonality and behavioural patterns in purchasing activity.
@@ -269,7 +272,7 @@ These KPIs provide an immediate snapshot of overall commercial performance.
 The multi-page dashboard enables drilldown from branch → product line → customer segment, providing a high-utility analytical experience for retail decision-makers.
 
 
-## 🧮 DAX Examples
+## 🧮 DAX Example
 
 ```DAX
 
