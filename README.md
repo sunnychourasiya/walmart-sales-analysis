@@ -80,20 +80,18 @@ The workflow reflects a **real-world enterprise BI pipeline**, enabling repeatab
 
 | **Section** | **Link** |
 |------------|----------|
-| Executive Summary | [Go to Section](#-executive-summary) |
-| Project Overview | [Go to Section](#-project-overview) |
+| Problem Statement | [Go to Section](#-problem-statement) |
 | Project Objectives | [Go to Section](#-project-objectives) |
+| Key Business Questions | [Go to Section](#-key-business-questions) |
+| Project Workflow | [Go to Section](#-project-workflow) |
 | Dataset Description | [Go to Section](#-dataset-description) |
-| Data Engineering (MySQL) | [Go to Section](#-data-cleaning--transformation-mysql) |
+| Data Cleaning & Transformation (MySQL) | [Go to Section](#-data-cleaning--transformation-mysql) |
 | Business Intelligence (Power BI) | [Go to Section](#-business-intelligence-power-bi) |
-| Business Questions Addressed | [Go to Section](#-business-questions-addressed) |
 | Key KPIs & DAX Measures | [Go to Section](#-key-dax-measures) |
-| Insights & Business Impact | [Go to Section](#-key-insights--business-impact) |
-| Analytics Architecture | [Go to Section](#-analytics-architecture) |
-| Project Structure | [Go to Section](#project-structure) |
+| Key Insights  | [Go to Section](#-key-insights--business-impact) |
+| Business Impact  | [Go to Section](#-business-impact) |
 | Technologies Used | [Go to Section](#-technologies-used) |
 | Dashboard Previews | [Go to Section](#-dashboard-previews) |
-| Future Enhancements | [Go to Section](#-future-enhancements) |
 | Conclusion | [Go to Section](#-conclusion) |
 | Show Support | [Go to Section](#-show-support) |
 
@@ -187,19 +185,24 @@ This project uses the **Supermarket Sales Dataset** from Kaggle containing 1,000
 
 ---
 
-## 🛠 Data Cleaning & Transformation (MySQL)  
-**SQL File:** `Supermarket_Sales.sql`
+## 🛠 Data Cleaning & Transformation (MySQL)
 
-### Key Steps Performed
+**SQL Script:** `supermarket_sales.sql`
 
-- Created database schema & staging environment
-- Cleaned fields and standardized column types
-- Derived time-based fields using SQL functions: 
-  - `MONTHNAME(date)`  
-  - `DAYNAME(date)`  
-  - `HOUR(time)`  
-- Calculated KPIs (Revenue, Tax, COGS, Gross Income, Margin %)
-- Generated aggregated tables for Power BI modeling 
+This stage prepared the raw CSV data for analysis by applying a structured, repeatable data-engineering workflow.
+
+### ✔ Key Activities Performed
+- **Designed a relational schema and staging environment** to ensure consistent ingestion and validation of source data.
+- **Standardized all data types** (e.g., DATE, TIME, DECIMAL) and corrected formatting inconsistencies to eliminate downstream reporting issues.
+- **Engineered analytical time fields** using SQL functions:
+  - `MONTHNAME(Date)`
+  - `DAYNAME(Date)`
+  - `HOUR(Time)`
+- **Computed core KPIs** including Revenue, COGS, Tax, Gross Income, and Margin %, forming the foundation of the BI model.
+- **Created aggregated views** for branch, product line, and customer-level analytics to optimize Power BI performance and simplify DAX logic.
+
+This transformation layer ensures that all insights and dashboards are built on clean, reliable, analysis-ready data.
+
 
 ### Example SQL Queries
 
@@ -231,104 +234,127 @@ ORDER BY hour_of_day;
 
 ## 📊 Power BI Dashboard
 
-**Dashboard File:** `Supermarket_Sales_Analysis.pbix`
+**File:** `Supermarket_Sales_Analysis.pbix`
 
-### **KPIs Displayed**
-- Total Revenue  
-- Gross Income  
-- Gross Margin %  
-- Total Quantity Sold  
-- Average Customer Rating  
+The dashboard serves as the primary decision-support interface, enabling business users to explore revenue, customer behavior, and product performance across three branches. It is built on a star-schema model with DAX-driven KPIs and interactive drilldowns.
 
-### **Key Dashboard Visuals**
-- Revenue by Month & Day  
-- Branch-Level Performance  
-- Category & Product Line Revenue  
-- Ratings Over Time  
-- Gender-Based Spending  
-- Payment Method Distribution  
-- Hourly Revenue Patterns   
+### ✔ Key KPIs Presented
+- **Total Revenue**
+- **Gross Income**
+- **Gross Margin %**
+- **Total Quantity Sold**
+- **Average Customer Rating**
 
----
+These KPIs provide an immediate snapshot of overall commercial performance.
 
-## 🧮 Key DAX Measures
+### ✔ Core Dashboard Modules
+- **Revenue Trends (Month & Day)**  
+  Identifies seasonality and behavioural patterns in purchasing activity.
+
+- **Branch Performance Overview**  
+  Compares revenue, gross income, and transaction volume across Mandalay, Yangon, and Naypyitaw.
+
+- **Category & Product Line Profitability**  
+  Highlights top-performing and underperforming product categories.
+
+- **Customer Insights (Gender & Customer Type)**  
+  Breaks down spending patterns, ratings, and contribution by segment.
+
+- **Payment Method Distribution**  
+  Reveals customer payment preferences across branches.
+
+- **Hourly & Daily Sales Patterns**  
+  Pinpoints peak shopping windows to support operations and staffing decisions.
+
+The multi-page dashboard enables drilldown from branch → product line → customer segment, providing a high-utility analytical experience for retail decision-makers.
+
+
+## 🧮 DAX Examples
 
 ```DAX
-Total Revenue = SUM(supermarket_sales[Total])
-
-Total Quantity = SUM(supermarket_sales[Quantity])
-
-Gross Income = SUM(supermarket_sales[Gross income])
-
-Gross Margin % = DIVIDE(
-    [Gross Income],
-    SUM(supermarket_sales[COGS])
-)
-
-Average Rating = AVERAGE(supermarket_sales[Rating])
 
 Revenue MoM % Change =
 DIVIDE(
-    [Total Revenue] - CALCULATE([Total Revenue], DATEADD(Date[Date], -1, MONTH)),
-    CALCULATE([Total Revenue], DATEADD(Date[Date], -1, MONTH))
+    [Total Revenue] -
+        CALCULATE(
+            [Total Revenue],
+            DATEADD(Date[Date], -1, MONTH)
+        ),
+    CALCULATE(
+        [Total Revenue],
+        DATEADD(Date[Date], -1, MONTH)
+    )
 )
+
 ```
+
 ---
 
-## 🧠 Key Insights & Business Impact
+## 🧠 Key Insights 
 
-### **Revenue & Profitability**
-- Electronics, Food & Beverages, and Home & Lifestyle lead in revenue and profit.  
-- Branch B demonstrates the strongest revenue and gross income performance.  
-- High margins indicate an effective pricing and category strategy.  
+### 📌 Revenue & Profitability
+- **Electronics, Food & Beverages, and Home & Lifestyle** are the primary revenue and profit contributors, indicating strong customer demand and healthy category economics.
+- **Branch B** consistently leads across total revenue, gross income, and margin performance, positioning it as the operational benchmark for the network.
+- Stable **gross margin levels** across categories suggest effective pricing strategy and cost management.
 
-### **Customer Behavior**
-- Female customers contribute slightly higher overall revenue.  
-- Member customers spend more per transaction than Normal customers.  
-- Customer ratings remain consistently high across all branches.  
+### 📌 Customer Behavior
+- **Female customers** contribute marginally higher revenue, reflecting distinct purchase patterns that can be leveraged for targeted campaigns.
+- **Member customers** exhibit higher average transaction value compared to Normal customers, reinforcing the value of loyalty initiatives.
+- **Customer satisfaction (ratings)** remains strong across all branches, supporting a positive service experience.
 
-### **Time-Based Performance**
-- Peak sales occur between **5 PM and 8 PM**.  
-- **Saturdays** show the highest transaction volume.  
-- **January** recorded the strongest month in terms of revenue.  
+### 📌 Time-Based Performance
+- Sales peak between **5 PM and 8 PM**, reflecting post-work shopping behavior and highlighting optimal staffing windows.
+- **Saturday** records the highest footfall and revenue, suggesting strong weekend-driven demand.
+- **January** emerges as the best-performing month, likely influenced by seasonal or post-holiday shopping trends.
 
-These insights help optimize **staffing**, **inventory planning**, **promotional strategies**, **category assortment**, and **customer targeting**.  
+---
+
+### ⭐ Business Impact
+The insights directly support improvements in:
+
+- **Staffing Efficiency:** Align headcount with hourly demand peaks.  
+- **Inventory Optimization:** Allocate fast-moving products to high-traffic periods and locations.  
+- **Promotional Strategy:** Target profitable segments (Members, Female customers) and high-margin categories.  
+- **Category Management:** Prioritize top-performing product lines to drive revenue growth.  
+- **Customer Targeting:** Leverage segment behaviors to tailor offers and loyalty programs.
+
+Overall, the analysis strengthens decision-making across operations, merchandising, marketing, and customer engagement.
 
 ---
 
 ## 🧰 Technologies Used
 
-- **MySQL** – Data cleaning, transformation, KPI modeling  
-- **Power BI** – Data modeling, DAX, dashboards  
-- **SQL** – Aggregations, joins, date/time functions  
-- **DAX** – KPI design & analytical calculations  
-- **CSV/Excel** – Source data format  
+A modern, scalable analytics stack combining relational data processing with interactive BI reporting:
+
+- **MySQL** — Data cleaning, transformation, KPI calculations, and aggregation logic  
+- **SQL** — Joins, CTEs, date/time functions, and analytical queries  
+- **Power BI** — Semantic data modeling, DAX measures, multi-page dashboards  
+- **DAX** — KPI development, time-intelligence calculations, and business logic  
+- **CSV/Excel** — Source data formats for ingestion and preprocessing  
+
 
 ---
 
 ## 🖼 Dashboard Previews
 
-### **1. Sales Overview Dashboard**
+Below are snapshots from the 4-page Power BI dashboard delivered as part of this project.
+
+### **1️⃣ Sales Overview Dashboard**
+Provides a consolidated view of revenue, gross income, branch performance, and top-level KPIs.  
 <img src="Images/Sales_Overview.png" width="550"/>
 
-### **2. Product Performance Dashboard**
+### **2️⃣ Product Performance Dashboard**
+Highlights category-wise profitability, revenue contribution, and product line insights.  
 <img src="Images/Product_Performance.png" width="550"/>
 
-### **3. Customer Insights Dashboard**
+### **3️⃣ Customer Insights Dashboard**
+Analyzes spending behavior, customer segments, ratings, and demographic trends.  
 <img src="Images/Customer_Insights.png" width="550"/>
 
-### **4. Time-Based Insights Dashboard**
+### **4️⃣ Time-Based Insights Dashboard**
+Visualizes hourly, daily, and monthly demand patterns to support staffing and inventory decisions.  
 <img src="Images/Time_Insights.png" width="550"/>
-
----
-
-## 🧭 Future Enhancements
-
-- Build forecasting models (Prophet / ARIMA)  
-- Perform customer segmentation using clustering  
-- Convert schema to star-schema dimensional modeling  
-- Enable scheduled refresh via Power BI Gateway  
-- Expand dataset for broader trend analysis  
+ 
 
 ---
 
